@@ -35,28 +35,24 @@ export class EmailService {
     const recipient = process.env.NOTIFICATION_TO || 'contact@yourtechsolutions.com';
     const sender = process.env.NOTIFICATION_FROM || 'YourTech Solutions <no-reply@yourtechsolutions.com>';
 
-    const subject = `[New Project Enquiry] ${record.serviceCategory} — ${record.fullName}`;
+    const subject = `[New Enquiry] ${record.service} — ${record.name}`;
     const textBody = `
-New Project Enquiry Received:
+New Service Enquiry Received:
 ========================================
-Full Name: ${record.fullName}
+Name: ${record.name}
 Email: ${record.email}
 Phone: ${record.phone}
-Company: ${record.companyName || 'N/A'}
-Service Category: ${record.serviceCategory}
-Preferred Tech: ${record.preferredTech || 'N/A'}
-Budget: ${record.projectBudget || 'N/A'}
-Urgency: ${(record.urgency || 'standard').toUpperCase()}
+Service: ${record.service}
 Submitted At: ${record.createdAt}
 
-Project Description:
+Message:
 ----------------------------------------
-${record.projectDescription}
+${record.message}
 ========================================
 `;
 
     if (!transporter) {
-      console.log('[EmailService] SMTP credentials not configured in environment. Skipping email dispatch (Enquiry stored in database).');
+      console.log('[EmailService] SMTP credentials not configured. Skipping email dispatch (Enquiry saved in database).');
       return true;
     }
 
@@ -68,10 +64,9 @@ ${record.projectDescription}
         subject,
         text: textBody,
       });
-      console.log(`[EmailService] Notification email sent successfully to ${recipient}`);
       return true;
     } catch (err) {
-      console.error('[EmailService] Error sending notification email:', err);
+      console.error('[EmailService] Error sending email notification:', err);
       return false;
     }
   }

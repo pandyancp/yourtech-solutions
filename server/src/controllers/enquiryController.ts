@@ -7,7 +7,7 @@ import { ApiResponse } from '../types/index.js';
 export class EnquiryController {
   public static async submitEnquiry(req: Request, res: Response): Promise<void> {
     try {
-      // 1. Validate Input Payload using Zod
+      // 1. Validate Input Payload
       const parseResult = enquirySchema.safeParse(req.body);
 
       if (!parseResult.success) {
@@ -22,7 +22,7 @@ export class EnquiryController {
 
         res.status(400).json({
           success: false,
-          message: 'Validation failed. Please correct the highlighted errors.',
+          message: 'Please complete all required fields correctly.',
           errors: formattedErrors,
         } as ApiResponse);
         return;
@@ -41,25 +41,25 @@ export class EnquiryController {
 
       // 3. Dispatch Email Notification (Asynchronous)
       EmailService.sendEnquiryNotification(record).catch((err) =>
-        console.error('[EnquiryController] Background email dispatch error:', err)
+        console.error('[EnquiryController] Email notification error:', err)
       );
 
       // 4. Return Success Response
       res.status(201).json({
         success: true,
-        message: 'Your enquiry has been successfully received. A senior engineer will review your requirements and reach out promptly.',
+        message: 'Thank you! Your enquiry has been received. Our team will contact you shortly.',
         data: {
           enquiryId: record.id,
           createdAt: record.createdAt,
-          fullName: record.fullName,
-          serviceCategory: record.serviceCategory,
+          name: record.name,
+          service: record.service,
         },
       } as ApiResponse);
     } catch (err: any) {
-      console.error('[EnquiryController] Unexpected error in submitEnquiry:', err);
+      console.error('[EnquiryController] Unexpected error:', err);
       res.status(500).json({
         success: false,
-        message: 'An unexpected server error occurred while processing your request. Please try again or contact us directly via WhatsApp / Phone.',
+        message: 'A server error occurred. Please reach out to us directly via WhatsApp or Phone.',
       } as ApiResponse);
     }
   }
@@ -72,7 +72,7 @@ export class EnquiryController {
       if (expectedKey && apiKey !== expectedKey) {
         res.status(401).json({
           success: false,
-          message: 'Unauthorized. Valid admin API key required.',
+          message: 'Unauthorized. Admin API key required.',
         } as ApiResponse);
         return;
       }

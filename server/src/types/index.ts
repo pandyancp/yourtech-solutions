@@ -1,13 +1,9 @@
 export interface EnquiryInput {
-  fullName: string;
+  name: string;
   email: string;
   phone: string;
-  companyName?: string;
-  serviceCategory: string;
-  preferredTech?: string;
-  projectBudget?: string;
-  projectDescription: string;
-  urgency?: 'critical' | 'standard' | 'planned';
+  service: string;
+  message: string;
 }
 
 export interface EnquiryRecord extends EnquiryInput {
