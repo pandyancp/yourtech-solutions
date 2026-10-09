@@ -159,6 +159,13 @@ export const Header: React.FC = () => {
               </div>
 
               <a
+                href="#features"
+                className="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-cyan-400 hover:bg-slate-800/60 rounded-full transition-all"
+              >
+                Capabilities
+              </a>
+
+              <a
                 href="#technologies"
                 className="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-cyan-400 hover:bg-slate-800/60 rounded-full transition-all"
               >
@@ -173,17 +180,17 @@ export const Header: React.FC = () => {
               </a>
 
               <a
+                href="#pricing"
+                className="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-cyan-400 hover:bg-slate-800/60 rounded-full transition-all"
+              >
+                Pricing
+              </a>
+
+              <a
                 href="#why-us"
                 className="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-cyan-400 hover:bg-slate-800/60 rounded-full transition-all"
               >
                 Why Us
-              </a>
-
-              <a
-                href="#about"
-                className="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-cyan-400 hover:bg-slate-800/60 rounded-full transition-all"
-              >
-                About
               </a>
 
               <a

@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
+import { BrandMarquee } from './components/BrandMarquee';
+import { WorkflowStats } from './components/WorkflowStats';
 import { Services } from './components/Services';
+import { FeaturesBento } from './components/FeaturesBento';
 import { ServiceDetailModal } from './components/ServiceDetailModal';
 import { ArchitectureFlow } from './components/ArchitectureFlow';
 import { Technologies } from './components/Technologies';
+import { PricingScope } from './components/PricingScope';
 import { AboutUs } from './components/AboutUs';
 import { Projects } from './components/Projects';
 import { WhyChooseUs } from './components/WhyChooseUs';
@@ -41,6 +45,10 @@ export const AppContent: React.FC = () => {
   const handlePreFillContact = (service: string, message: string) => {
     setContactService(service);
     setContactMessage(message);
+    const contactElement = document.getElementById('contact');
+    if (contactElement) {
+      contactElement.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const handleConsultClick = () => {
@@ -52,52 +60,64 @@ export const AppContent: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col selection:bg-brand-500 selection:text-white transition-colors duration-500">
-      {/* Fixed Sticky Header with Theme Selector */}
+      {/* 1. Floating Sticky Island Header with Theme Selector */}
       <Header />
 
-      {/* Main Content Sections */}
+      {/* Main Content Sections (Intellio Model Layout) */}
       <main className="flex-grow">
-        {/* 1. Hero Section */}
+        {/* 2. Hero Section with Live Telemetry & Console Card */}
         <Hero onConsultClick={handleConsultClick} />
 
-        {/* 2. Services We Provide (7 Core Services) */}
+        {/* 3. Sliding Brand & Technology Partner Marquee */}
+        <BrandMarquee />
+
+        {/* 4. Verified KPI & Workflow Metrics Counter */}
+        <WorkflowStats />
+
+        {/* 5. Services We Provide (7 Core Engineering Services) */}
         <Services
           onSelectService={handleSelectService}
           onQuickQuote={handleQuickQuote}
         />
 
-        {/* 3. Visual Infrastructure Architecture & Pipeline */}
+        {/* 6. Capabilities Bento Grid (Intellio Style) */}
+        <FeaturesBento />
+
+        {/* 7. Visual Infrastructure Architecture & CI/CD Pipeline */}
         <ArchitectureFlow />
 
-        {/* 4. Technologies & Tools */}
+        {/* 8. Polyglot Technologies, Frameworks & Cloud Stacks */}
         <Technologies />
 
-        {/* 5. About Us & Company Reliability */}
-        <AboutUs />
+        {/* 9. Transparent Scope & Pricing Packages */}
+        <PricingScope onSelectPlan={handlePreFillContact} />
 
-        {/* 6. Projects & Case Studies */}
+        {/* 10. Featured Case Studies & Production Deployments */}
         <Projects />
 
-        {/* 7. Why Choose Us & Client Trust */}
+        {/* 11. About Us & Leadership Engineering Team */}
+        <AboutUs />
+
+        {/* 12. Why Choose Us & Enterprise Guarantees */}
         <WhyChooseUs />
 
-        {/* 8. Interactive Scope & Quote Estimator */}
+        {/* 13. Dynamic Scope & Cost Estimator */}
         <QuoteCalculator onPreFillContact={handlePreFillContact} />
 
-        {/* 9. FAQs */}
+        {/* 14. Frequently Asked Questions */}
         <FaqSection />
 
-        {/* 10. Contact Us & Consultation */}
+        {/* 15. Simplified 5-Field Contact & Consultation Form (Connected to Backend) */}
         <Contact
           preFilledService={contactService}
           preFilledMessage={contactMessage}
         />
       </main>
 
-      {/* Floating Action Buttons */}
+      {/* Floating Action Buttons (WhatsApp & Quick Call) */}
       <FloatingActions />
 
-      {/* Modal for Service Deep Dive */}
+      {/* Deep-Dive Service Specification Modal */}
       <ServiceDetailModal
         service={selectedService}
         onClose={() => setSelectedService(null)}

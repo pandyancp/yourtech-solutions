@@ -181,3 +181,23 @@ html.theme-light .btn-secondary {
 .btn-whatsapp {
   @apply inline-flex items-center justify-center gap-2 font-medium px-5 py-2.5 rounded-full text-white bg-gradient-to-r from-emerald-600 to-green-500 hover:from-emerald-500 hover:to-green-400 transition-all duration-300 shadow-lg shadow-emerald-950/40 hover:scale-[1.02] active:scale-[0.98] border border-emerald-400/30;
 }
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Glowing text highlight */
+.glow-text {
+  text-shadow: 0 0 25px rgba(6, 182, 212, 0.4);
+}
