@@ -1,0 +1,31 @@
+// Prisma schema for YourTech Solutions Enquiry System
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Enquiry {
+  id               String   @id @default(uuid())
+  fullName         String
+  email            String
+  phone            String
+  companyName      String?
+  serviceCategory  String
+  preferredTech    String?
+  projectBudget    String?
+  projectDescription String
+  urgency          String   @default("standard")
+  ipAddress        String?
+  userAgent        String?
+  status           String   @default("NEW") // NEW, CONTACTED, IN_PROGRESS, CLOSED
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([email])
+  @@index([serviceCategory])
+  @@index([createdAt])
+}

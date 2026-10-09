@@ -1,0 +1,21 @@
+[Unit]
+Description=YourTech Solutions Node.js Express Backend Service
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/var/www/yourtechsolutions
+ExecStart=/usr/bin/node /var/www/yourtechsolutions/server/dist/index.js
+Restart=always
+RestartSec=5
+Environment=NODE_ENV=production
+Environment=PORT=5000
+EnvironmentFile=/var/www/yourtechsolutions/.env
+
+# Security Sandbox
+ProtectSystem=full
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

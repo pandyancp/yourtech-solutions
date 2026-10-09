@@ -1,0 +1,20 @@
+# ==============================================================================
+# Development Docker Compose Configuration
+# Run: docker compose -f docker-compose.dev.yml up --build
+# ==============================================================================
+
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: yourtech-app-dev
+    ports:
+      - "5000:5000"
+    environment:
+      NODE_ENV: development
+      PORT: 5000
+    volumes:
+      - ./server/data:/app/server/data
