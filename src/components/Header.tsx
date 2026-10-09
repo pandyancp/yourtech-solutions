@@ -18,6 +18,7 @@ import {
   Zap
 } from 'lucide-react';
 import { siteConfig } from '../config/siteConfig';
+import { ThemeSelector } from './ThemeSelector';
 
 export const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -45,13 +46,13 @@ export const Header: React.FC = () => {
   }, []);
 
   const serviceIcons = [
-    { title: "DevOps & CI/CD", icon: GitBranch, desc: "Automated pipelines & IaC" },
-    { title: "Docker & Kubernetes", icon: Box, desc: "Container stacks & clusters" },
-    { title: "Java Application Deployment", icon: Coffee, desc: "Tomcat, WebLogic & JVM" },
-    { title: "SQL & Database Services", icon: Database, desc: "MSSQL & MySQL tuning" },
-    { title: "Frontend & Web Dev", icon: Layout, desc: "Responsive React portals" },
-    { title: "System Administration", icon: Server, desc: "24/7 Linux & Windows mgmt" },
-    { title: "Firewall & Security", icon: ShieldCheck, desc: "Fortinet & IPsec VPNs" }
+    { title: "Frontend Development", icon: Layout, desc: "React, Next.js, Angular & Vue" },
+    { title: "Backend Development", icon: Server, desc: "Node, Python, Java, Go, PHP, C#" },
+    { title: "SQL & NoSQL Databases", icon: Database, desc: "PostgreSQL, MSSQL, MySQL & Redis" },
+    { title: "DevOps & CI/CD Pipelines", icon: GitBranch, desc: "Jenkins, GitHub Actions & GitLab" },
+    { title: "Docker & Kubernetes", icon: Box, desc: "Containers, Helm & Argo CD" },
+    { title: "Multi-Cloud & IaC", icon: Zap, desc: "AWS, Azure, OCI & Terraform" },
+    { title: "Systems & Fortinet Security", icon: ShieldCheck, desc: "Linux/Windows, Firewalls & VPN" }
   ];
 
   return (
@@ -86,7 +87,7 @@ export const Header: React.FC = () => {
               : 'bg-slate-950/70 backdrop-blur-xl border border-white/10 py-3 px-4 sm:px-6'
           }`}
         >
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center justify-between gap-3">
             
             {/* Brand Logo */}
             <a href="#home" className="flex items-center gap-3 group flex-shrink-0">
@@ -101,7 +102,7 @@ export const Header: React.FC = () => {
                   {siteConfig.company.name}
                 </span>
                 <span className="text-[10px] font-mono tracking-wider uppercase text-cyan-400/90 -mt-1 font-semibold">
-                  Enterprise Cloud & DevOps
+                  {siteConfig.company.tagline}
                 </span>
               </div>
             </a>
@@ -109,7 +110,7 @@ export const Header: React.FC = () => {
             {/* Desktop Navigation Links */}
             <nav className="hidden xl:flex items-center gap-1">
               
-              {/* Services Dropdown Trigger */}
+              {/* Services Dropdown */}
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
@@ -124,7 +125,7 @@ export const Header: React.FC = () => {
                 {servicesDropdownOpen && (
                   <div
                     onMouseLeave={() => setServicesDropdownOpen(false)}
-                    className="absolute top-full left-0 mt-2 w-80 p-3 rounded-2xl glass-island shadow-2xl border border-brand-500/30 animate-fadeIn"
+                    className="absolute top-full left-0 mt-2 w-80 p-3 rounded-2xl glass-island shadow-2xl border border-brand-500/30 animate-fadeIn z-50"
                   >
                     <div className="space-y-1">
                       {serviceIcons.map((s, idx) => {
@@ -150,7 +151,7 @@ export const Header: React.FC = () => {
                       })}
                     </div>
                     <div className="mt-2 pt-2 border-t border-slate-800 flex items-center justify-between text-[11px] text-cyan-400 px-2 font-mono">
-                      <span>Explore all 7 services</span>
+                      <span>Explore all capabilities</span>
                       <ArrowRight className="w-3 h-3" />
                     </div>
                   </div>
@@ -168,7 +169,7 @@ export const Header: React.FC = () => {
                 href="#projects"
                 className="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-cyan-400 hover:bg-slate-800/60 rounded-full transition-all"
               >
-                Case Studies
+                Projects
               </a>
 
               <a
@@ -194,9 +195,12 @@ export const Header: React.FC = () => {
               </a>
             </nav>
 
-            {/* Desktop Action CTAs */}
-            <div className="hidden sm:flex items-center gap-2.5">
+            {/* Desktop Action CTAs & Theme Selector */}
+            <div className="hidden sm:flex items-center gap-2">
               
+              {/* Theme Selector */}
+              <ThemeSelector />
+
               {/* WhatsApp Quick Button */}
               <a
                 href={siteConfig.company.whatsappUrl}
@@ -220,8 +224,10 @@ export const Header: React.FC = () => {
               </a>
             </div>
 
-            {/* Mobile Menu Trigger */}
+            {/* Mobile Actions */}
             <div className="flex xl:hidden items-center gap-2">
+              <ThemeSelector />
+
               <a
                 href={`tel:${siteConfig.company.phone}`}
                 className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-cyan-400 sm:hidden"

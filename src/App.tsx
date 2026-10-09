@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ThemeProvider } from './context/ThemeContext';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Services } from './components/Services';
@@ -15,7 +16,7 @@ import { FloatingActions } from './components/FloatingActions';
 import { Footer } from './components/Footer';
 import { ServiceItem, siteConfig } from './config/siteConfig';
 
-export const App: React.FC = () => {
+export const AppContent: React.FC = () => {
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
   const [contactService, setContactService] = useState<string>(siteConfig.services[0].title);
   const [contactMessage, setContactMessage] = useState<string>('');
@@ -50,8 +51,8 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-navy-950 text-slate-100 flex flex-col selection:bg-brand-500 selection:text-white">
-      {/* Fixed Sticky Header */}
+    <div className="min-h-screen flex flex-col selection:bg-brand-500 selection:text-white transition-colors duration-500">
+      {/* Fixed Sticky Header with Theme Selector */}
       <Header />
 
       {/* Main Content Sections */}
@@ -106,6 +107,14 @@ export const App: React.FC = () => {
       {/* Footer */}
       <Footer />
     </div>
+  );
+};
+
+export const App: React.FC = () => {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 };
 
